@@ -93,71 +93,11 @@ if (not t.sunday?)&&(not t.saturday?) then
   backup(DAY,DIR_DAY,t,CONDITION_DAY) 
 end
 
-#if (t.sunday?) || (t.saturday?) then
-#  backup(WEEK,DIR_WEEK,t,CONDITION_WEEK)
-#end
+if (t.sunday?) || (t.saturday?) then
+  backup(WEEK,DIR_WEEK,t,CONDITION_WEEK)
+end
 
-#if MONTH_DAY.include?(t.day) then
-#  backup(MONTH,DIR_MONTH,t,CONDITION_MONTH)
-#end
+if MONTH_DAY.include?(t.day) then
+  backup(MONTH,DIR_MONTH,t,CONDITION_MONTH)
+end
 
-
-
-
-
-#MONTH.each do |vm|
-#  t=Time.now
-#   %x[/bin/rm #{BACKUP_DIR}*.log] if (File.exist?("#{BACKUP_DIR}#{MONTH.last}-#{t.month}-#{t.year}.log"))&&(not MONTH_DAY.include?(t.day))
-#  break if not MONTH_DAY.include?(t.day)
-#  break if t.hour == 5
-#  next if File.exist?("#{BACKUP_DIR}#{vm}-#{t.month}-#{t.year}.log")
-#  @logger = Logger.new("#{BACKUP_DIR}#{vm}-#{t.month}-#{t.year}.log", LOG_AGE)
-#  @logger.info("Started running")
-#  
-#  run_time = Benchmark.realtime do
-#     begin
-#       backup(vm,'10.101.97.228','42mBHveOtV')  
-#     end
-#  end
-#  @logger.info("Finished running - Execution time: #{run_time.to_s[0, 5]}")
-#  send_email_with_log(vm,t)
-#  
-#end
-
-#WEEK.each do |vm|
-#  t=Time.now
-#   %x[/bin/rm #{BACKUP_DIR}week/*.log] if (File.exist?("#{BACKUP_DIR}week/#{WEEK.last}-#{t.month}-#{t.year}.log"))&&(not t.monday?)
-#  break if not t.monday?
-#  break if t.hour == 5
-#  next if File.exist?("#{BACKUP_DIR}week/#{vm}-#{t.month}-#{t.year}.log")
-#  @logger = Logger.new("#{BACKUP_DIR}week/#{vm}-#{t.month}-#{t.year}.log", LOG_AGE)
-#  @logger.info("Started running")
-#  
-##  run_time = Benchmark.realtime do
-##     begin
-##       backup(vm,'10.101.97.228','42mBHveOtV',DIR_WEEK)  
-##     end
-##  end
-##  @logger.info("Finished running - Execution time: #{run_time.to_s[0, 5]}")
-#  send_email_with_log(vm,t)
-#  
-#end
-
-#DAY.each do |vm|
-#  t=Time.now
-#   %x[/bin/rm #{BACKUP_DIR}day/*.log] if (File.exist?("#{BACKUP_DIR}day/#{DAY.last}-#{t.month}-#{t.year}.log"))&&(not t.sunday?)&&(not t.saturday?)
-#  break if t.saturday? || t.sunday?
-#  break if t.hour == 5
-#  next if File.exist?("#{BACKUP_DIR}day/#{vm}-#{t.month}-#{t.year}.log")
-#  @logger = Logger.new("#{BACKUP_DIR}day/#{vm}-#{t.month}-#{t.year}.log", LOG_AGE)
-#  @logger.info("Started  running")
-#  
-##  run_time = Benchmark.realtime do
-##     begin
-##       backup(vm,'10.101.97.228','42mBHveOtV',DIR_DAY)  
-##     end
-##  end
-##  @logger.info("Finished running - Execution time: #{run_time.to_s[0, 5]}")
-#  send_email_with_log(vm,t)
-#  
-#end

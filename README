@@ -1,0 +1,2 @@
+This is my first script on Ruby.
+Script appointment: backup VMs on XenServer use suspend|export|resume xe functionality. Periods of backup: daily, weekly, monthly. The rotation is designed for one copy.

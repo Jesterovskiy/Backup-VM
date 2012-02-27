@@ -16,10 +16,10 @@ MONTH         = ['test']
 WEEK          = ['test']
 DAY           = ['test']
 # == Log.
-LOG_AGE       = 'daily'
+LOG_AGE       = 'monthly'
 # == Email.
-FROM	      = 'backup_vm@dp.energy.gov.ua'
-TO            = 'dashkevich@dp.energy.gov.ua'
+FROM	      = ''
+TO            = ''
 
 BACKUP_DIR    = '/media/test/'
 DIR_MONTH     = 'month/'
@@ -41,17 +41,17 @@ def backup(frequency,dir,t,condition)
     @logger.info("Started running")
     case true
     when DOE_POOL.include?(vm)
-      server = '10.101.97.228'
-      pass = "42mBHveOtV"
+      server = ''
+      pass = ""
     when DOMAIN_POOL.include?(vm)
-      server = '10.101.97.234'
-      pass = "mKHAcuD&KM"
+      server = ''
+      pass = ""
     when SAMBP_XEN.include?(vm)
-      server = '10.101.97.112'
-      pass = "hsw5}zaL/I"
+      server = ''
+      pass = ""
     when SUNFIRE_XEN.include?(vm)
-      server = '10.101.97.121'
-      pass = "BvY?7Ea0<Q"
+      server = ''
+      pass = ""
     end
       result = []
       run_time = Benchmark.realtime do

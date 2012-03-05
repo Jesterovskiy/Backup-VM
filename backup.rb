@@ -1,20 +1,17 @@
 #!/usr/bin/ruby
-#require 'rubygems'
 require 'logger'
 require 'benchmark'
-#require 'net/ping'
-#require 'net/smtp'
 
 #============================= OPTIONS ==============================#
 # == List of VMs.
-DOE_POOL      = ['test']
+DOE_POOL      = []
 DOMAIN_POOL   = []
 SAMBP_XEN     = []
 SUNFIRE_XEN   = []
 
-MONTH         = ['test']
-WEEK          = ['test']
-DAY           = ['test']
+MONTH         = []
+WEEK          = []
+DAY           = []
 # == Log.
 LOG_AGE       = 'monthly'
 # == Email.
@@ -34,6 +31,7 @@ CONDITION_DAY   = '&&(not t.sunday?)&&(not t.saturday?)'
 #========================== END OF OPTIONS ==========================#
 def backup(frequency,dir,t,condition)
   frequency.each do |vm|
+    break if (Time.now.hour >= 5) && (Time.now.hour <= 20)
     mkdir = system("mkdir #{BACKUP_DIR}#{dir}#{vm} > /dev/null 2>&1")
     %x[/bin/rm #{BACKUP_DIR}#{dir}#{vm}/*.log] if (File.exist?("#{BACKUP_DIR}#{dir}#{vm}/#{frequency.last}-#{t.month}-#{t.year}.log"))#{condition}
     next if File.exist?("#{BACKUP_DIR}#{dir}#{vm}/#{vm}-#{t.month}-#{t.year}.log")
@@ -75,7 +73,7 @@ def send_email_with_log(vm,t,dir)
 csvnamefile = "#{BACKUP_DIR}#{DIR_DAY}#{vm}/#{vm}-#{t.month}-#{t.year}.log"
 binary = File.read(csvnamefile)
 encoded = [binary].pack("m")    # base64 econding
-puts  value = %x[/usr/sbin/sendmail dashkevich@dp.energy.gov.ua << EOF
+puts  value = %x[/usr/sbin/sendmail  << EOF
 subject: Backup VM #{vm}
 from: backup-vm
 Content-Description: "#{csvnamefile}"
